@@ -12,6 +12,8 @@ Answer briefly:
 
 -   In Remix.js, I made the remaining character counter turn orange when there are 20 characters left, providing a visual warning to the user. While variants are being generated, a loading message is displayed in the results area to indicate that the process is in progress. If an error occurs, an error message is shown in the results area, and it disappears when the user starts typing. I used variants.slice(0, 4) to ensure that only four variants are displayed. With guidance from ChatGPT, I also updated MAX_CHARS from 240 to 280 to reflect the maximum allowed character count.
 
+-   Changed the PHP version in composer.json to resolve deployment issues on Railway.
+
 2. Tradeoffs to keep it small:
 
 -   In RemixService.php i changes the while loop to have maximum of 10 attempts to avoid an infinite loop. If after 10 attempts the variant is still too long, I truncate it using substr (or mb_substr) to ensure it fits within 280 characters.
