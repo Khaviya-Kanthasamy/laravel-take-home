@@ -81,25 +81,28 @@ class RemixService
 ];
 
 $combine_text = [];
-//$same_variant = true;
 $variant = "";
 $attemp = 0;
 
 for($i = 0 ; $i < 4 ; $i++)
 {
+    // Genrate Variant 
     $variant = $prefixe[array_rand($prefixe)] ." ". $text ." ". $suffixe[array_rand($suffixe)];
-
+    
+    // Generate new variant if variant is more then 280 chars or a copy of a variant already existing
     while((strlen($variant) > 280 || in_array($variant,$combine_text)) && $attemp < 10)
     {
          $variant = $prefixe[array_rand($prefixe)] . " " . $text . " ". $suffixe[array_rand($suffixe)];
          $attemp++;
     }
+
+    // truncate after 10 attempt to have 280 chars
     if(strlen($variant) > 280 ){
         $variant = substr($variant,0,280);
     }
+    // add the new variant to the liste of variant
     $combine_text[$i] = $variant;
 }
         return $combine_text;
-        //return [$text, $text, $text, $text];
     }
 }

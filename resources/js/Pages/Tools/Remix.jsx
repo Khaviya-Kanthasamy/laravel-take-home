@@ -72,11 +72,6 @@ export default function Remix() {
                             <span>Min 20 characters</span>
                             <span className={remaining < 0 ? "text-red-500 font-bold" :
                             remaining < 20 ? "text-orange-500 font-semibold" : ""}
-                                //className={
-                                  //  remaining < 0
-                                    //    ? "text-red-500 font-bold"
-                                      //  : ""
-                                //}
                             >
                                 {remaining} characters remaining
                             </span>
