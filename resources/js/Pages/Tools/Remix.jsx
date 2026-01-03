@@ -3,7 +3,7 @@ import axios from "axios";
 import { Head } from "@inertiajs/react";
 
 export default function Remix() {
-    const MAX_CHARS = 240;
+    const MAX_CHARS = 280;
 
     const [text, setText] = useState("");
     const [variants, setVariants] = useState([]);
@@ -63,17 +63,20 @@ export default function Remix() {
                             className="w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-4 min-h-[160px]"
                             value={text}
                             maxLength={MAX_CHARS}
-                            onChange={(e) => setText(e.target.value)}
+                            onChange={(e) => {setText(e.target.value);
+                                 if (error) setError("");
+                            }}
                             placeholder="e.g. 3 reasons your reach is stalled..."
                         />
                         <div className="flex justify-between text-xs text-gray-500 mt-2">
                             <span>Min 20 characters</span>
-                            <span
-                                className={
-                                    remaining < 0
-                                        ? "text-red-500 font-bold"
-                                        : ""
-                                }
+                            <span className={remaining < 0 ? "text-red-500 font-bold" :
+                            remaining < 20 ? "text-orange-500 font-semibold" : ""}
+                                //className={
+                                  //  remaining < 0
+                                    //    ? "text-red-500 font-bold"
+                                      //  : ""
+                                //}
                             >
                                 {remaining} characters remaining
                             </span>
@@ -102,9 +105,18 @@ export default function Remix() {
                         <h2 className="text-lg font-semibold text-gray-900 mb-4">
                             Results
                         </h2>
-                        {variants?.length ? (
+                        {loading ? (
+                            <div className="text-center py-12 text-gray-400">
+                                Generating variants…
+                            </div>
+                        ) : error ? (
+                           <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md text-sm text-red-600">
+                            {error}
+                            </div>
+                        ) 
+                        :variants?.length ? (
                             <div className="grid gap-4">
-                                {variants.map((v, i) => (
+                                {variants.slice(0, 4).map((v, i) => (
                                     <div
                                         key={i}
                                         className="bg-gray-50 border border-gray-200 rounded-xl p-5 relative group"

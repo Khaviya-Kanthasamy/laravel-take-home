@@ -22,6 +22,84 @@ class RemixService
         // - Combine them with the original text
         // - Ensure the resulting string is <= 280 chars
 
-        return [$text, $text, $text, $text];
+        $prefixe = [
+             "Did you know?",
+    "Here’s something interesting.",
+    "You might be surprised.",
+    "Little-known fact:",
+    "Quick tip:",
+    "Heads up:",
+    "Important reminder:",
+    "Story time:",
+    "Fun fact:",
+    "Curious?",
+    "Don’t miss this:",
+    "Attention:",
+    "Here’s a thought:",
+    "Consider this:",
+    "Make it happen.",
+    "Check it out.",
+    "Explore further.",
+    "See for yourself.",
+    "Put this into practice.",
+    "Your move.",
+    "Try it now.",
+    "Share your results.",
+    "Learn more.",
+    "Act on it today."];
+
+        $suffixe = [
+     "— and here’s why.",
+    "— but there’s a catch.",
+    "— most people overlook this.",
+    "— and it changes everything.",
+    "— you’ll thank yourself later.",
+    "— let that sink in.",
+    "— think about it.",
+    "— here’s the secret.",
+    "— don’t miss this.",
+    "— it’s worth considering.",
+    "— before it’s too late.",
+    "— a surprising fact.",
+    "— this might shock you.",
+    "— and it works every time.",
+    "— something to keep in mind.", 
+    "Start now.",
+    "Take action.",
+    "Don’t wait.",
+    "Give it a shot.",
+    "Make it happen.",
+    "Check it out.",
+    "Explore further.",
+    "See for yourself.",
+    "Put this into practice.",
+    "Your move.",
+    "Try it now.",
+    "Share your results.",
+    "Learn more.",
+    "Act on it today."
+];
+
+$combine_text = [];
+//$same_variant = true;
+$variant = "";
+$attemp = 0;
+
+for($i = 0 ; $i < 4 ; $i++)
+{
+    $variant = $prefixe[array_rand($prefixe)] ." ". $text ." ". $suffixe[array_rand($suffixe)];
+
+    while((strlen($variant) > 280 || in_array($variant,$combine_text)) && $attemp < 10)
+    {
+         $variant = $prefixe[array_rand($prefixe)] . " " . $text . " ". $suffixe[array_rand($suffixe)];
+         $attemp++;
+    }
+    if(strlen($variant) > 280 ){
+        $variant = substr($variant,0,280);
+    }
+    $combine_text[$i] = $variant;
+}
+        return $combine_text;
+        //return [$text, $text, $text, $text];
     }
 }
