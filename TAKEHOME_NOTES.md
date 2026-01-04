@@ -10,11 +10,11 @@ Answer briefly:
 
 -   In RemixController.php, I used $request->validate() and $validated['text'] (with guidance from ChatGPT) to ensure the input is at least 20 characters and at most 280 characters; if not, an error is returned. Then, I used $remixService->variants() to generate four variants and applied array_slice($text, 0, 4) to guarantee that exactly four variants are returned.
 
--   In Remix.js, I made the remaining character counter turn orange when there are 20 characters left, providing a visual warning to the user. While variants are being generated, a loading message is displayed in the results area to indicate that the process is in progress. If an error occurs, an error message is shown in the results area, and it disappears when the user starts typing. I used variants.slice(0, 4) to ensure that only four variants are displayed. With guidance from ChatGPT, I also updated MAX_CHARS from 240 to 280 to reflect the maximum allowed character count.
+-   In Remix.js, I made the remaining character counter turn orange when there are 20 characters left, providing a visual warning to the user. While variants are being generated, a loading message is displayed in the results area to indicate that the process is in progress. If an error occurs, an error message is shown in the results area, and it disappears when the user starts typing. I used variants.slice(0, 4) to ensure that only four variants are displayed. With guidance from ChatGPT, I also updated MAX_CHARS from 240 to 280 to reflect the maximum allowed character count. I also implemented an error-handling method that tries to display the most helpful error message: first from the server response, then from the JavaScript error, and finally a generic fallback if nothing else is available. I found this method using ChatGPT.
 
 -   Changed the PHP version in composer.json to resolve deployment issues on Railway.
 
--   I added HTTPS enforcement in AppServiceProvider to fix mixed-content issues caused by HTTP-loaded assets when deploying to Railway.
+-   I added HTTPS enforcement in the AppServiceProvider to resolve mixed-content issues caused by HTTP-loaded assets when deploying to Railway. I used ChatGPT to help find the solution.
 
 2. Tradeoffs to keep it small:
 

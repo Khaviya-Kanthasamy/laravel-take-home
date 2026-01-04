@@ -21,10 +21,17 @@ export default function Remix() {
             const res = await axios.post("/api/remix", { text });
             setVariants(res.data?.variants ?? []);
         } catch (e) {
-            const message =
-                e?.response?.data?.message ||
-                e?.message ||
-                "Something went wrong.";
+            
+            let message = "Something went wrong.";
+            
+            if (e.response?.status === 422) {
+                message = "Please enter at least 20 characters.";
+            } else if (e.response?.status >= 500) {
+                message = "Server error. Please try again later.";
+            } else {
+                message = e?.response?.data?.message || e?.message || message;
+            }
+
             setError(message);
         } finally {
             setLoading(false);
