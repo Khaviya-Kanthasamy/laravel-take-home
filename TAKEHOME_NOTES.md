@@ -14,6 +14,8 @@ Answer briefly:
 
 -   Changed the PHP version in composer.json to resolve deployment issues on Railway.
 
+-   I added HTTPS enforcement in AppServiceProvider to fix mixed-content issues caused by HTTP-loaded assets when deploying to Railway.
+
 2. Tradeoffs to keep it small:
 
 -   In RemixService.php i changes the while loop to have maximum of 10 attempts to avoid an infinite loop. If after 10 attempts the variant is still too long, I truncate it using substr (or mb_substr) to ensure it fits within 280 characters.
